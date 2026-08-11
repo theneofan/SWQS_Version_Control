@@ -1,0 +1,4 @@
+SD Data Logger Example: https://github.com/arduino-libraries/SD/blob/master/examples/Datalogger/Datalogger.ino
+SD Library: http://www.arduino.cc/en/Reference/SD
+Sensor Bus Library: https://github.com/PaulStoffregen/OneWire
+DallasTemperatuure Library for DS18B20: https://github.com/milesburton/Arduino-Temperature-Control-Library
