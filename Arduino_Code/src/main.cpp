@@ -16,17 +16,15 @@
 const int chipSelect = 10;
 
 // Temp Sensor pin
-const int oneWireBus = 2;
+#define ONE_WIRE_BUS 2
 
 // LED pins
 const int LED_RED = 7;
 const int LED_YELLOW = 4;
-const int LED_GREEN = 2;
+
+
 
 // Water quality indicator
-bool safe;
-bool caution;
-bool unsafe;
 
 // Depth detection
 const int trigPin = 9;
@@ -35,13 +33,18 @@ long duration;
 int distance;
 
 //TESTING ONLY
-int testBlink = 2;
+// TODO: add testing
 
 // Setup a oneWire instance to communicate with any OneWire device
-OneWire oneWire(oneWireBus);
+OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature sensor
 DallasTemperature sensors(&oneWire);
+
+// Function declarations used before their definitions.
+int detectDepth();
+int calculateDepth();
+int getTemp();
 
 void setup() {
   // put your setup code here, to run once:
@@ -66,13 +69,10 @@ void setup() {
 }
 
 void loop() {
-  detectDepth();
 
   // make a string for assembling the data to log:
-  String dataString = "";
-
-  float tempC = sensors.getTempCByIndex(0);
-
+  
+  /*
   if (unsafe == true) {
     digitalWrite(LED_RED, HIGH);
   } 
@@ -82,12 +82,13 @@ void loop() {
   else{
     digitalWrite(LED_GREEN, HIGH);
   }
+  */
 
-
-  // Wait 1 second between each reading
-
+  // Wait 0.1 second between each reading
+  getTemp();
+  delay(100);
 }
-
+/*
 // put function definitions here:
 int detectDepth() {
   digitalWrite(trigPin, LOW);
@@ -104,8 +105,18 @@ int detectDepth() {
   Serial.println(" cm");
   delay(100);
 }
+*/
 
-int calculateDepth() {
+int getTemp() {
+  sensors.requestTemperatures(); 
+   
+  /* delay(); */
+   
+  float tempC = sensors.getTempCByIndex(0);
+  Serial.print("Temperature: ");
+  Serial.print(tempC);
+  Serial.println("°C");
+  delay(100);
 
-
+  return 0;
 }
